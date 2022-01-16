@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS exchange_rates (
 );
 """
 
-def update_exchange_rates():
+def update_exchange_rate():
     prices = []
 
     # coingecko
@@ -67,10 +67,5 @@ def update_exchange_rates():
     conn.commit()
 
 while True:
-    update_exchange_rates()
-
-    cur = conn.cursor()
-    cur.execute("SELECT price FROM exchange_rates WHERE coin = 'XMR' AND currency = 'EUR' ORDER BY timestamp DESC LIMIT 1")
-    print('pgsql: 1 XMR = ' + str(cur.fetchone()[0]) + ' EUR')
-
+    update_exchange_rate()
     time.sleep(60 * 15)
